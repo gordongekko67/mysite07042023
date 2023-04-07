@@ -3,6 +3,17 @@ from django.views import generic
 from .models import Todo
 from django.http import HttpResponseRedirect
 
+class HomeView(generic.ListView):
+    template_name = 'todos/home.html'
+    context_object_name = 'home'
+
+    def get_queryset(self):
+        """Return all the latest todos."""
+        return Todo.objects.order_by('-created_at')
+
+   
+
+
 class IndexView(generic.ListView):
     template_name = 'todos/index.html'
     context_object_name = 'todo_list'
